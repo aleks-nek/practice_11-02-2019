@@ -1,1 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://localhost:5432/postgres"
+#    url: "jdbc:postgresql://192.168.99.100:5432/db"
+    username: "postgres"
+    password: "root"
+  flyway:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+#    url: "jdbc:postgresql://192.168.99.100:5432/db"
+    enabled: true
+    schemas: public
+    user: "postgres"
+    password: "root"
+
 
