@@ -1,0 +1,21 @@
+#registration-form {
+    margin-top: 35px;
+    padding: 20px;
+    min-width:350px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: space-around;
+
+}
+
+#submit-button {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#form-header {
+    margin-bottom: 10px;
+}
