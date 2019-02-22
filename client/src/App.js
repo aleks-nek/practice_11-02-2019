@@ -10,6 +10,9 @@ import SignIn from './components/user/signin';
 const Home = () => (
     <div>
         <p>Home page</p>
+        <div>
+            <div id="renderDiv"></div>
+        </div>
         <a href="/signin">Sign in</a><br />
         <a href="/signup">Sign up</a>
     </div>

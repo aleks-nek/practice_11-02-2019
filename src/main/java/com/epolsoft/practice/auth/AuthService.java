@@ -37,6 +37,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
     public Account register(Account account){
         Role role = roleMapper.findByName(ROLE_USER);
         account.setRole(role);
@@ -58,7 +60,6 @@ public class AuthService {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         return jwtTokenProvider.generateToken(authentication);
     }
 }

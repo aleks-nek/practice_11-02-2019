@@ -151,48 +151,13 @@ class RegistrationForm extends Component{
                         margin="dense"
                         variant="outlined"
                     />
-                    {/*<Input*/}
-                        {/*className="item"*/}
-                        {/*placeholder="Login"*/}
-                        {/*name="login"*/}
-                        {/*error={fields.login.err}*/}
-                        {/*onChange={(event) => {this.handleInputChange(event, this.validateLogin)}}*/}
-                    {/*/>*/}
-                    {/*<Input*/}
-                        {/*className="item"*/}
-                        {/*placeholder="First name"*/}
-                        {/*name="firstName"*/}
-                        {/*error={fields.firstName.err}*/}
-                        {/*onChange={(event) => {this.handleInputChange(event, this.validateName)}}*/}
-                    {/*/>*/}
-                    {/*<Input*/}
-                        {/*className="item"*/}
-                        {/*placeholder="Last name"*/}
-                        {/*name="lastName"*/}
-                        {/*error={fields.lastName.err}*/}
-                        {/*onChange={(event) => {this.handleInputChange(event, this.validateName)}}*/}
-                    {/*/>*/}
-                    {/*<Input*/}
-                        {/*className="item"*/}
-                        {/*placeholder="E-mail"*/}
-                        {/*name="email"*/}
-                        {/*error={fields.email.err}*/}
-                        {/*onChange={(event) => {this.handleInputChange(event, this.validateEmail)}}*/}
-                    {/*/>*/}
-                    {/*<Input*/}
-                        {/*className="item"*/}
-                        {/*placeholder="Password"*/}
-                        {/*name="password"*/}
-                        {/*error={fields.password.err}*/}
-                        {/*onChange={(event) => {this.handleInputChange(event, this.validatePassword)}}*/}
-                    {/*/>*/}
 
                     <Button onClick={this.onClickSubmitButton} disabled={this.isNotValidForm()} id="submit-button" variant="contained" color="primary">
                         Register
                     </Button>
 
                     <Typography variant="caption" gutterBottom>
-                        Already registered? <a href="/login">Login now!</a>
+                        Already registered? <a href="/signin">Login now!</a>
                     </Typography>
                 </Paper>
             </div>
