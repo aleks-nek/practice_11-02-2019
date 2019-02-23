@@ -21,12 +21,13 @@ class SignIn extends Component {
             .then(res => {
                 if(res.status === 200){
                     localStorage.setItem(ACCESS_TOKEN, res.data.token);
-                    this.props.onSuccessAuthentication();
                     this.props.history.push('/');
+                    this.props.showNotification('Login successful.');
                 }
             })
             .catch(err => {
-                console.log(err);
+                this.props.showNotification('Login successful.');
+                console.log('---', err);
             });
     }
 }
@@ -36,8 +37,8 @@ export default connect(
         state
     }),
     dispatch => ({
-        onSuccessAuthentication: () => {
-            dispatch({type: 'AUTHENTICATION_USER_SUCCESS'});
+        showNotification: (msg) => {
+            dispatch({type: 'SHOW_NOTIFICATION', payload: {message: msg}});
         }
     })
 )(SignIn);

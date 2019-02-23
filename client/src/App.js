@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import Header from './components/header';
 import SignUp from './components/user/signup';
 import SignIn from './components/user/signin';
+import Notification from './components/notification';
 
 const Home = () => (
     <div>
@@ -26,6 +27,7 @@ class App extends Component {
                     <Route exact path="/" component = {Home} />
                     <Route path="/signin" component = {SignIn} />
                     <Route path="/signup" component = {SignUp} />
+                    <Notification />
                 </section>
             </BrowserRouter>
         );

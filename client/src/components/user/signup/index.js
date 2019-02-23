@@ -21,12 +21,13 @@ class Signup extends Component {
             .then(res => {
                 if(res.status === 200){
                     localStorage.setItem(ACCESS_TOKEN, res.data.token);
-                    this.props.onSuccessRegistration();
                     this.props.history.push('/');
+                    this.props.showNotification('Registration success.');
                 }
             })
             .catch(err => {
-                console.log(err);
+                this.props.showNotification('Registration failure.');
+                console.log('---', err);
             });
     }
 }
@@ -36,10 +37,8 @@ export default connect(
         state
     }),
     dispatch => ({
-        onSuccessRegistration: () => {
-            dispatch({type: 'AUTHENTICATION_USER_SUCCESS'});
+        showNotification: (msg) => {
+            dispatch({type: 'SHOW_NOTIFICATION', payload: {message: msg}});
         }
     })
 )(Signup);
-
-//export default Signup;
