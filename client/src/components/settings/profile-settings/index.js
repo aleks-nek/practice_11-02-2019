@@ -62,17 +62,17 @@ function SettingsList(props) {
                     Profile Settings
                 </Typography>
                 <div className="item">
-                    <Typography variant="h6" gutterBottom>
-                        login
-                    </Typography>
-                    <InputBase
-                        id="bootstrap-input"
-                        defaultValue="react-bootstrap"
-                        classes={{
-                            root: classes.bootstrapRoot,
-                            input: classes.bootstrapInput,
-                        }}
-                    />
+                    {/*<Typography variant="h6" gutterBottom>*/}
+                        {/*login*/}
+                    {/*</Typography>*/}
+                    {/*<InputBase*/}
+                        {/*id="bootstrap-input"*/}
+                        {/*defaultValue="react-bootstrap"*/}
+                        {/*classes={{*/}
+                            {/*root: classes.bootstrapRoot,*/}
+                            {/*input: classes.bootstrapInput,*/}
+                        {/*}}*/}
+                    {/*/>*/}
                 </div>
 
             </Paper>
