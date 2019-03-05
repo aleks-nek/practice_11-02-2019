@@ -63,3 +63,52 @@ CREATE TABLE employee (
   account_id INTEGER NOT NULL UNIQUE REFERENCES account(id),
   company_id INTEGER NOT NULL REFERENCES company(id)
 );
+
+-- Клиент компании
+CREATE TABLE client (
+  id serial PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  phone VARCHAR(30) NOT NULL,
+  email VARCHAR(254),
+  address VARCHAR(255),
+  comment VARCHAR(255),
+  is_conflicted BOOLEAN DEFAULT FALSE
+);
+
+-- Тип заказа
+CREATE TABLE order_type (
+  id serial PRIMARY KEY,
+  name VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO order_type (name) VALUES ('Paid');
+INSERT INTO order_type (name) VALUES ('Warranty');
+
+-- Тип девайса
+CREATE TABLE device_type (
+  id serial PRIMARY KEY,
+  name VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO device_type (name) VALUES ('Laptop');
+INSERT INTO device_type (name) VALUES ('Smartphone');
+
+-- Заказ
+CREATE TABLE orders (
+  id serial PRIMARY KEY,
+  imei VARCHAR(50),
+  brand VARCHAR(50),
+  model VARCHAR(50),
+  equipment VARCHAR(255),
+  appearance VARCHAR(255),
+  password VARCHAR(255),
+  defect VARCHAR(255),
+  receiver_notes VARCHAR(255),
+  estimated_price INTEGER,
+  quickly BOOLEAN DEFAULT FALSE,
+  order_type_id INTEGER NOT NULL REFERENCES order_type(id),
+  client_id INTEGER NOT NULL REFERENCES client(id),
+  device_type_id INTEGER NOT NULL REFERENCES device_type(id),
+  manager_id INTEGER REFERENCES employee(id),
+  executor_id INTEGER REFERENCES employee(id)
+);
