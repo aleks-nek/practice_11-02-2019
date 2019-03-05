@@ -16,5 +16,5 @@ public interface CountryMapper {
     Country findByName(String name);
 
     @Select("select * from country")
-    List<Country> selectAllCountries();
+    List<Country> selectAll();
 }

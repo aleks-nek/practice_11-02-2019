@@ -15,6 +15,6 @@ public class CountryController {
 
     @GetMapping("/country")
     public List<Country> get(){
-        return countryMapper.selectAllCountries();
+        return countryMapper.selectAll();
     }
 }
