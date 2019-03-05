@@ -17,7 +17,7 @@ public interface CompanyMapper {
 
     @Select("select * from company where id=#{id}")
     @Results(id="companyMapper", value = {
-            @Result(property = "country", column = "country_id", one = @One(select = Reference.COUNTRY)),
+        @Result(property = "country", column = "country_id", one = @One(select = Reference.COUNTRY)),
     })
     Company findById(Long id);
 }
