@@ -73,3 +73,14 @@ export function getCountries() {
         method: 'get'
     })
 }
+
+export function getCompanyClients() {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/clients`,
+        method: 'get'
+    })
+}

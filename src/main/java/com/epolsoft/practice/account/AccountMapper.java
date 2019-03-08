@@ -10,10 +10,11 @@ public interface AccountMapper {
     class Reference {
         static final String ROLE = "com.epolsoft.practice.role.RoleMapper.findById";
         static final String PROFILE = "com.epolsoft.practice.profile.ProfileMapper.findById";
+        static final String EMPLOYEE = "com.epolsoft.practice.company.employee.EmployeeMapper.findById";
     }
 
-    @Insert("insert into account (login, password, profile_id, role_id) " +
-            "values(#{login}, #{password}, #{profile.id}, #{role.id})")
+    @Insert("insert into account (login, password, employee_id, profile_id, role_id) " +
+            "values(#{login}, #{password}, #{employee.id}, #{profile.id}, #{role.id})")
     @Options(keyProperty = "id", keyColumn = "id", useGeneratedKeys = true)
     void insert(Account account);
 
@@ -23,6 +24,7 @@ public interface AccountMapper {
     @Results(id="accountMapper", value = {
             @Result(property = "role", column = "role_id", one = @One(select = Reference.ROLE)),
             @Result(property = "profile", column = "profile_id", one = @One(select = Reference.PROFILE)),
+            @Result(property = "employee", column = "employee_id", one = @One(select = Reference.EMPLOYEE)),
     })
     Account findById(Long id);
 

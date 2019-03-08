@@ -37,7 +37,7 @@ public class Order {
     @Size(max = 255)
     private String receiverNotes;
 
-    private String estimatedPrice; // Возможная цена
+    private Integer estimatedPrice; // Возможная цена
 
     private Boolean quickly; // Срочный заказ
 

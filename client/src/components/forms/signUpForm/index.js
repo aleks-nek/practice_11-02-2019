@@ -50,26 +50,26 @@ class RegistrationForm extends Component{
     onClickSubmitButton = () => {
         let fields = this.state;
 
-        let employee = {
-            account: {
-                login: fields.login.value,
-                password: fields.password.value,
-                profile: {
-                    email: fields.email.value,
-                    firstName: fields.firstName.value,
-                    lastName: fields.lastName.value
-                }
+        let account = {
+            login: fields.login.value,
+            password: fields.password.value,
+            profile: {
+                email: fields.email.value,
+                firstName: fields.firstName.value,
+                lastName: fields.lastName.value
             },
-            company: {
-                name: fields.companyName.value,
-                city: fields.companyCity.value,
-                country:{
-                    name: fields.companyCountry
+            employee: {
+                company: {
+                    name: fields.companyName.value,
+                    city: fields.companyCity.value,
+                    country:{
+                        name: fields.companyCountry
+                    }
                 }
             }
         };
 
-        this.props.handleSubmitButton(employee);
+        this.props.handleSubmitButton(account);
     };
 
     handleInputChange = (event, validateFunction) => {
@@ -84,8 +84,6 @@ class RegistrationForm extends Component{
                 err: validation.err
             }
         });
-
-        console.log(this.state);
     };
 
     handleChange = name => event => {

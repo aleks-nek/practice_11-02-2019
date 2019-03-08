@@ -12,11 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
-    @Autowired
-    private AuthService authService;
 
-    @PostMapping("/employee")
-    public void add(@RequestBody Employee employee){
-        authService.register(employee);
-    }
 }

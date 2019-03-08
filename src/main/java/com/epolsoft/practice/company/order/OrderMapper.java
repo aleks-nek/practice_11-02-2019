@@ -12,7 +12,7 @@ public interface OrderMapper {
         static final String ORDER_TYPE = "com.epolsoft.practice.company.ordertype.OrderTypeMapper.findById";
         static final String CLIENT = "com.epolsoft.practice.company.client.ClientMapper.findById";
         static final String DEVICE_TYPE = "com.epolsoft.practice.company.devicetype.DeviceTypeMapper.findById";
-        static final String EMPLOYEE = "com.epolsoft.practice.company.devicetype.DeviceTypeMapper.findById";
+        static final String EMPLOYEE = "com.epolsoft.practice.company.employee.EmployeeMapper.findById";
     }
 
     @Select("select * from orders")

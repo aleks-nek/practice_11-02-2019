@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import SignInForm from '../../components/forms/signUpForm';
 import './index.css';
 import {ACCESS_TOKEN} from "../../constants";
+import {loadCurrentUser} from "../../actions/user";
 
 class Signup extends Component {
     constructor(props){
@@ -37,8 +38,8 @@ class Signup extends Component {
         );
     }
 
-    handleSubmitButton = (employee) => {
-        registration(employee)
+    handleSubmitButton = (account) => {
+        registration(account)
             .then(res => {
                 if(res.status === 200){
                     localStorage.setItem(ACCESS_TOKEN, res.data.token);
@@ -62,8 +63,8 @@ export default connect(
         showNotification: (msg) => {
             dispatch({type: 'SHOW_NOTIFICATION', payload: {message: msg}});
         },
-        onSuccessAuthenticationUser: (user) => {
-            dispatch({type: 'AUTHENTICATION_USER_SUCCESS', payload: {user} });
+        onSuccessAuthenticationUser: () => {
+            dispatch(loadCurrentUser());
         },
     })
 )(Signup);

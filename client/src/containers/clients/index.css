@@ -1,0 +1,6 @@
+#table-wraper {
+    display: flex;
+    flex-direction: row;
+    margin-left: 25px;
+    margin-right: 25px;
+}

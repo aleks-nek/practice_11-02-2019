@@ -12,9 +12,6 @@ public class Employee {
     private Long id;
 
     @NotNull
-    private Account account;
-
-    @NotNull
     private Company company;
 
     @NotNull

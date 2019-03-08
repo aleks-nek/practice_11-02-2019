@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {authentication} from "../../util/APIUtils";
+import {loadCurrentUser} from '../../actions/user';
 import {connect} from 'react-redux';
 
 import SignInForm from '../../components/forms/signInForm';
@@ -20,7 +21,7 @@ class SignIn extends Component {
         authentication(credentials)
             .then(res => {
                 if(res.status === 200){
-                    localStorage.setItem(ACCESS_TOKEN, res.data.token);
+                    localStorage.setItem(ACCESS_TOKEN, res.data.token); console.log('-- on authentication', res);
                     this.props.onSuccessAuthenticationUser();
                     this.props.history.push('/');
                     this.props.showNotification('Login successful.');
@@ -40,8 +41,8 @@ export default connect(
         showNotification: (msg) => {
             dispatch({type: 'SHOW_NOTIFICATION', payload: {message: msg}});
         },
-        onSuccessAuthenticationUser: (user) => {
-            dispatch({type: 'AUTHENTICATION_USER_SUCCESS', payload: {user} });
+        onSuccessAuthenticationUser: () => {
+            dispatch(loadCurrentUser());
         },
     })
 )(SignIn);

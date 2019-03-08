@@ -17,11 +17,7 @@ public class UserController {
 //    @PreAuthorize("hasRole('ROLE_USER')")
     public UserSummary getCurrentUser (@CurrentUser UserPrincipal currentUser){
         return new UserSummary(
-                currentUser.getId(),
-                currentUser.getUsername(),
-                currentUser.getFirstName(),
-                currentUser.getLastName(),
-                currentUser.getEmail()
+                currentUser.getAccount()
         );
     }
 }

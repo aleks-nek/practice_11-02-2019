@@ -43,24 +43,24 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp (@RequestBody Employee employee){
+    public ResponseEntity<?> signUp (@RequestBody Account account){
 
-        if(accountMapper.existsByLogin(employee.getAccount().getLogin())){
+        if(accountMapper.existsByLogin(account.getLogin())){
             return new ResponseEntity(new ApiResponse(false, "Login already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if(profileMapper.existsByEmail(employee.getAccount().getProfile().getEmail())){
+        if(profileMapper.existsByEmail(account.getProfile().getEmail())){
             return new ResponseEntity(new ApiResponse(false, "Email already in use"),
                     HttpStatus.BAD_REQUEST);
         }
 
         // пароль для последующей аутентификации,
         // т.к. после регистрации он будет зашифрован
-        String password = employee.getAccount().getPassword();
-        authService.register(employee);
+        String password = account.getPassword();
+        authService.register(account);
 
-        String jwt = authService.authenticate(employee.getAccount().getLogin(), password);
+        String jwt = authService.authenticate(account.getLogin(), password);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 

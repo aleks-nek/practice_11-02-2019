@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CompanyMapper {
     class Reference {
-        static final String COUNTRY = "com.epolsoft.practice.country.CompanyMapper.findById";
+        static final String COUNTRY = "com.epolsoft.practice.country.CountryMapper.findById";
     }
 
     @Insert("insert into company (name, country_id, city) " +

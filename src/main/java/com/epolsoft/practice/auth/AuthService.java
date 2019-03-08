@@ -59,26 +59,29 @@ public class AuthService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public Employee register(Employee employee){
+    public Account register(Account account){
         Role role = roleMapper.findByName(ROLE_USER); // TODO Раскидать по сервисам
-        employee.getAccount().setRole(role);
+        account.setRole(role);
 
-        profileMapper.insert(employee.getAccount().getProfile());
+        profileMapper.insert(account.getProfile());
 
-        employee.getAccount().setPassword(passwordEncoder.encode(employee.getAccount().getPassword()));
-        accountMapper.insert(employee.getAccount());
 
+        // установка сотруднику роли ROLE_OWNER
         EmployeeRole employeeRole = employeeRoleMapper.findByName(ROLE_OWNER);
-        employee.setRole(employeeRole);
+        account.getEmployee().setRole(employeeRole);
 
-        Country country = countryMapper.findByName(employee.getCompany().getCountry().getName());
-        employee.getCompany().setCountry(country);
+        Country country = countryMapper.findByName(account.getEmployee().getCompany().getCountry().getName());
+        account.getEmployee().getCompany().setCountry(country);
 
-        companyMapper.insert(employee.getCompany());
+        companyMapper.insert(account.getEmployee().getCompany());
 
-        employeeMapper.insert(employee);
+        employeeMapper.insert(account.getEmployee());
 
-        return employee;
+
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        accountMapper.insert(account);
+
+        return account;
     }
 
     public String authenticate(String login, String password){

@@ -2,6 +2,7 @@ import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ClientsIcon from '@material-ui/icons/SupervisorAccount';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 import Link from '@material-ui/core/Link';
@@ -28,6 +29,14 @@ class RightDrawer extends React.Component {
                             </ListItemIcon>
                             <Link href="/root" underline="none" color="inherit">
                                 Profile
+                            </Link>
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ClientsIcon />
+                            </ListItemIcon>
+                            <Link href="/clients" underline="none" color="inherit">
+                                Clients
                             </Link>
                         </ListItem>
                         <ListItem button>

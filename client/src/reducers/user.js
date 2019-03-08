@@ -19,7 +19,7 @@ export default function user(state = initialState, action) {
         }
     }
 
-    if(action.type === 'LOADING_USER'){
+    if(action.type === 'TOGGLE_LOADING_USER_INDICATOR'){
         return {
             ...state,
             isLoading: !state.isLoading

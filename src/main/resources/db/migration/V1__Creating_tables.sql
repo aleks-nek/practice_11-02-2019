@@ -13,14 +13,6 @@ CREATE TABLE role_dictionary (
 INSERT INTO role_dictionary (name) VALUES ('ROLE_ADMIN');
 INSERT INTO role_dictionary (name) VALUES ('ROLE_USER');
 
-CREATE TABLE account (
-  id serial PRIMARY KEY,
-  login VARCHAR (50) UNIQUE NOT NULL,
-  password VARCHAR(150) NOT NULL,
-  profile_id INTEGER NOT NULL UNIQUE  REFERENCES profile(id),
-  role_id INTEGER NOT NULL REFERENCES role_dictionary(id)
-);
-
 CREATE TABLE country (
   id serial PRIMARY KEY,
   name varchar(50)
@@ -60,8 +52,17 @@ CREATE TABLE company (
 CREATE TABLE employee (
   id serial PRIMARY KEY,
   employee_role_id INTEGER NOT NULL REFERENCES employee_role(id),
-  account_id INTEGER NOT NULL UNIQUE REFERENCES account(id),
   company_id INTEGER NOT NULL REFERENCES company(id)
+);
+
+
+CREATE TABLE account (
+   id serial PRIMARY KEY,
+   login VARCHAR (50) UNIQUE NOT NULL,
+   password VARCHAR(150) NOT NULL,
+   employee_id INTEGER NOT NULL UNIQUE REFERENCES employee(id),
+   profile_id INTEGER NOT NULL UNIQUE  REFERENCES profile(id),
+   role_id INTEGER NOT NULL REFERENCES role_dictionary(id)
 );
 
 -- Клиент компании
@@ -69,6 +70,7 @@ CREATE TABLE client (
   id serial PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   phone VARCHAR(30) NOT NULL,
+  company_id INTEGER NOT NULL REFERENCES company(id),
   email VARCHAR(254),
   address VARCHAR(255),
   comment VARCHAR(255),
