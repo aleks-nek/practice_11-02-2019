@@ -6,14 +6,14 @@ import {connect} from 'react-redux';
 import {loadCurrentUser} from './actions/user';
 
 import './App.css';
-import Header from './containers/header';
+import Header from './containers/HeaderContainer';
 import Root from './containers/root';
 import Home from './containers/home';
-import Clients from './containers/clients';
-import SignUp from './containers/signup';
-import SignIn from './containers/signin';
-import Settings from './containers/settings';
-import Notification from './components/notification';
+import Clients from './containers/ClientsContainer';
+import Orders from './containers/OrdersContainer';
+import SignUp from './containers/SignUpContainer';
+import SignIn from './containers/SignInContainer';
+import Notification from './components/Notification';
 
 const history = createBrowserHistory();
 
@@ -21,7 +21,9 @@ const history = createBrowserHistory();
 class App extends Component {
 
     componentDidMount(){
-        this.props.onLoadUser();
+        if(!this.props.user.isAuthenticated){
+            this.props.onLoadUser();
+        }
     }
 
     render() {
@@ -42,15 +44,16 @@ class App extends Component {
                     <Route exact path="/"   component = {Root} />
                     <Route path="/home"     component = {Home} />
                     <Route path="/clients"  component = {Clients} />
+                    <Route path="/orders"   component = {Orders} />
                     <Route path="/signin"   component = {SignIn} />
                     <Route path="/signup"   component = {SignUp} />
-                    <Route path="/settings" component = {Settings} />
                     <Notification />
                 </section>
             </Router>
         );
     }
 }
+
 export default connect(
     state => ({
         user: state.user

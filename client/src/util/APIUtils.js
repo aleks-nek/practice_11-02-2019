@@ -84,3 +84,60 @@ export function getCompanyClients() {
         method: 'get'
     })
 }
+
+export function saveClient(client) {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/client`,
+        method: 'post',
+        data: client
+    })
+}
+
+export function getOrders() {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/orders`,
+        method: 'get' 
+    })
+}
+
+export function saveOrder(order) {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/order`,
+        method: 'post',
+        data: order
+    })
+}
+
+export function getOrderTypes() {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/order-type`,
+        method: 'get'
+    })
+}
+
+export function getDeviceTypes() {
+    if(!localStorage.getItem(ACCESS_TOKEN)){
+        return Promise.reject('No request token set.')
+    }
+
+    return request({
+        url: `${API_BASE_URL}/device-type`,
+        method: 'get'
+    })
+}

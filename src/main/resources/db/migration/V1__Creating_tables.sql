@@ -110,6 +110,7 @@ CREATE TABLE orders (
   quickly BOOLEAN DEFAULT FALSE,
   order_type_id INTEGER NOT NULL REFERENCES order_type(id),
   client_id INTEGER NOT NULL REFERENCES client(id),
+  company_id INTEGER NOT NULL REFERENCES company(id),
   device_type_id INTEGER NOT NULL REFERENCES device_type(id),
   manager_id INTEGER REFERENCES employee(id),
   executor_id INTEGER REFERENCES employee(id)

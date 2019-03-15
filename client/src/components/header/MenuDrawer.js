@@ -1,18 +1,25 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ClientsIcon from '@material-ui/icons/SupervisorAccount';
-import SettingsIcon from '@material-ui/icons/Settings';
+import OrdersListIcon from '@material-ui/icons/ListAlt';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 import Link from '@material-ui/core/Link';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-import './index.css';
+const styles = {
+    list: {
+        minWidth: '250px'
+    }
+};
 
 class RightDrawer extends React.Component {
     render() {
+        const { classes } = this.props;
+
         return (
             <div>
                 <Drawer anchor="right" open={this.props.isOpen} onClose={this.props.toggleDrawer}>
@@ -21,7 +28,7 @@ class RightDrawer extends React.Component {
                         role="button"
                         onClick={this.props.toggleDrawer}
                         onKeyDown={this.props.toggleDrawer}
-                        className={'list'}
+                        className={classes.list}
                     >
                         <ListItem button>
                             <ListItemIcon>
@@ -31,7 +38,7 @@ class RightDrawer extends React.Component {
                                 Profile
                             </Link>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button >
                             <ListItemIcon>
                                 <ClientsIcon />
                             </ListItemIcon>
@@ -41,10 +48,10 @@ class RightDrawer extends React.Component {
                         </ListItem>
                         <ListItem button>
                             <ListItemIcon>
-                                <SettingsIcon />
+                                <OrdersListIcon />
                             </ListItemIcon>
-                            <Link href="/settings" underline="none" color="inherit">
-                                Settings
+                            <Link href="/orders" underline="none" color="inherit">
+                                Orders
                             </Link>
                         </ListItem>
                         <Divider />
@@ -61,6 +68,7 @@ class RightDrawer extends React.Component {
             </div>
         );
     }
+
 }
 
-export default (RightDrawer);
+export default withStyles(styles)(RightDrawer);

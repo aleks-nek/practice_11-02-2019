@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -7,9 +8,31 @@ import TextField from '@material-ui/core/TextField';
 import {
     MIN_LOGIN_LENGTH, MAX_LOGIN_LENGTH,
     MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH
-} from "../../../constants";
+} from "../../constants";
 
-import './index.css';
+const styles = {
+    signInForm: {
+        marginTop: '35px',
+        padding: '20px',
+        minWidth:'350px',
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        alignContent: 'space-around',
+
+    },
+
+    submitButton: {
+        marginTop: '10px',
+        marginBottom: '5px',
+    },
+
+    formHeader: {
+        marginBottom: '10px'
+    },
+};
 
 class RegistrationForm extends Component{
 
@@ -28,6 +51,7 @@ class RegistrationForm extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onClickSubmitButton = this.onClickSubmitButton.bind(this);
     }
+
     onClickSubmitButton = () => {
 
         let credentials = {
@@ -63,14 +87,15 @@ class RegistrationForm extends Component{
     };
 
     render(){
+        const { classes } = this.props;
 
         const fields = this.state;
 
         return (
             <div>
-                <Paper id="registration-form" elevation={0}>
+                <Paper className={classes.signInForm} elevation={0}>
 
-                    <Typography id="form-header" variant="h5" component="h3">
+                    <Typography className={classes.formHeader} variant="h5" component="h3">
                         Sign In
                     </Typography>
 
@@ -97,7 +122,7 @@ class RegistrationForm extends Component{
                         variant="outlined"
                     />
 
-                    <Button onClick={this.onClickSubmitButton} disabled={this.isNotValidForm()} id="submit-button" variant="contained" color="primary">
+                    <Button onClick={this.onClickSubmitButton} disabled={this.isNotValidForm()} className={classes.submitButton} variant="contained" color="primary">
                         Sign In
                     </Button>
 
@@ -161,5 +186,4 @@ class RegistrationForm extends Component{
     }
 }
 
-export default RegistrationForm;
-// export default withStyles(styles)(PaperSheet);
+export default withStyles(styles)(RegistrationForm);

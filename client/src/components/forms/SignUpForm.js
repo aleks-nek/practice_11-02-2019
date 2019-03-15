@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -10,9 +11,31 @@ import {
     MIN_NAME_LENGTH, MAX_NAME_LENGTH,
     MAX_EMAIL_LENGTH,
     MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH
-} from "../../../constants";
+} from "../../constants";
 
-import './index.css';
+const styles = {
+    registrationForm: {
+        marginTop: '35px',
+        padding: '20px',
+        minWidth:'350px',
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        alignContent: 'space-around',
+
+    },
+
+    submitButton: {
+        marginTop: '10px',
+        marginBottom: '5px',
+    },
+
+    formHeader: {
+        marginBottom: '10px'
+    },
+};
 
 class RegistrationForm extends Component{
 
@@ -116,14 +139,14 @@ class RegistrationForm extends Component{
     };
 
     render(){
-
+        const { classes } = this.props;
         const fields = this.state;
 
         return (
             <div>
-                <Paper id="registration-form" elevation={0}>
+                <Paper className={classes.registrationForm} elevation={0}>
 
-                    <Typography id="form-header" variant="h5" component="h3">
+                    <Typography className={classes.formHeader} variant="h5" component="h3">
                         Sign up
                     </Typography>
 
@@ -221,7 +244,7 @@ class RegistrationForm extends Component{
                         variant="outlined"
                     />
 
-                    <Button onClick={this.onClickSubmitButton} disabled={this.isNotValidForm()} id="submit-button" variant="contained" color="primary">
+                    <Button onClick={this.onClickSubmitButton} disabled={this.isNotValidForm()} className={classes.submitButton} variant="contained" color="primary">
                         Register
                     </Button>
 
@@ -265,7 +288,7 @@ class RegistrationForm extends Component{
 
     validateName = (name) => {
 
-        const NAME_REGEX = RegExp('^[a-zA-Z]+$');
+        const NAME_REGEX = RegExp('^[a-zA-ZА-яа-я]+$');
         if(!NAME_REGEX.test(name)){
             return {
                 err: true,
@@ -344,5 +367,4 @@ class RegistrationForm extends Component{
     }
 }
 
-export default RegistrationForm;
-// export default withStyles(styles)(PaperSheet);
+export default withStyles(styles)(RegistrationForm);

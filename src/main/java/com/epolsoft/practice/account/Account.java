@@ -19,7 +19,6 @@ public class Account{
     private String login;
 
     @NotBlank
-    @JsonIgnore
     @Size(min = 6, max = 50)
     private String password;
 

@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
-import {registration} from "../../util/APIUtils";
-import {getCountries} from "../../util/APIUtils";
+import { withStyles } from "@material-ui/core/styles";
 import {connect} from 'react-redux';
 
-import SignInForm from '../../components/forms/signUpForm';
-import './index.css';
-import {ACCESS_TOKEN} from "../../constants";
-import {loadCurrentUser} from "../../actions/user";
+import SignUpForm from '../components/forms/SignUpForm';
+import {ACCESS_TOKEN} from "../constants";
+import {registration} from "../util/APIUtils";
+import {getCountries} from "../util/APIUtils";
+import {loadCurrentUser} from "../actions/user";
+import {showNotification} from "../actions/notification";
 
-class Signup extends Component {
+const styles = {
+    signUpBody: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+    }
+};
+
+class SignUpContainer extends Component {
     constructor(props){
         super(props);
 
@@ -28,9 +39,11 @@ class Signup extends Component {
     }
 
     render(){
+        const { classes } = this.props;
+
         return(
-            <div id={"sign-up-body"}>
-                <SignInForm
+            <div className={classes.signUpBody}>
+                <SignUpForm
                     handleSubmitButton={this.handleSubmitButton}
                     countries={this.state.countries}
                 />
@@ -61,10 +74,10 @@ export default connect(
     }),
     dispatch => ({
         showNotification: (msg) => {
-            dispatch({type: 'SHOW_NOTIFICATION', payload: {message: msg}});
+            dispatch(showNotification(msg));
         },
         onSuccessAuthenticationUser: () => {
             dispatch(loadCurrentUser());
         },
     })
-)(Signup);
+)(withStyles(styles)(SignUpContainer));

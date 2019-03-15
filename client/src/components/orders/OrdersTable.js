@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,10 +16,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import DissatisfiedFaceIcon from '@material-ui/icons/SentimentVeryDissatisfied';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import OrderAddIcon from '@material-ui/icons/PlaylistAdd';
+import {lighten} from '@material-ui/core/styles/colorManipulator';
 
 
 function desc(a, b, orderBy) {
@@ -47,11 +45,20 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-    { id: 'phone', numeric: false, disablePadding: false, label: 'Phone' },
-    { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-    { id: 'address', numeric: false, disablePadding: false, label: 'Address' },
-    { id: 'comment', numeric: false, disablePadding: false, label: 'Comment' },
+    { id: 'orderType', numeric: false, disablePadding: true, label: 'Order type' },
+    { id: 'client', numeric: false, disablePadding: false, label: 'Client' },
+    { id: 'deviceType', numeric: false, disablePadding: false, label: 'Device type' },
+    { id: 'imei', numeric: false, disablePadding: false, label: 'IMEI' },
+    { id: 'brand', numeric: false, disablePadding: false, label: 'Brand' },
+    { id: 'model', numeric: false, disablePadding: false, label: 'Model' },
+    { id: 'equipment', numeric: false, disablePadding: false, label: 'Equipment' },
+    { id: 'appearance', numeric: false, disablePadding: false, label: 'Appearance' },
+    { id: 'password', numeric: false, disablePadding: false, label: 'Password' },
+    { id: 'defect', numeric: false, disablePadding: false, label: 'Defect' },
+    { id: 'receiverNotes', numeric: false, disablePadding: false, label: 'Receiver notes' },
+    { id: 'estimatedPrice', numeric: false, disablePadding: false, label: 'Estimated price' },
+    // { id: 'manager', numeric: false, disablePadding: false, label: 'Manager' },
+    // { id: 'executor', numeric: false, disablePadding: false, label: 'Executor' },
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -136,10 +143,13 @@ const toolbarStyles = theme => ({
         flex: '0 0 auto',
         marginRight: '10px'
     },
+    addOrderButton: {
+        marginLeft: '10px'
+    },
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes, onClickAddClientButton } = props;
+    const { numSelected, classes, onClickAddOrderButton } = props;
 
     return (
         <Toolbar
@@ -153,29 +163,23 @@ let EnhancedTableToolbar = props => {
                         {numSelected} selected
                     </Typography>
                 ) : (
-                    <Typography variant="h6" id="tableTitle">
-                        Clients
+                    <Typography variant="h6" >
+                        Orders
+                        <IconButton onClick={onClickAddOrderButton} className={classes.addOrderButton} color="primary" component="span">
+                            <OrderAddIcon />
+                        </IconButton>
                     </Typography>
                 )}
             </div>
-            <IconButton onClick={onClickAddClientButton} color="primary" component="span">
-                <PersonAddIcon />
-            </IconButton>
             <div className={classes.spacer} />
             <div className={classes.actions}>
-                {numSelected > 0 ? (
+                {numSelected > 0 &&
                     <Tooltip title="Delete">
                         <IconButton aria-label="Delete">
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
-                ) : (
-                    <Tooltip title="Filter list">
-                        <IconButton aria-label="Filter list">
-                            <FilterListIcon />
-                        </IconButton>
-                    </Tooltip>
-                )}
+                }
             </div>
         </Toolbar>
     );
@@ -190,8 +194,8 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
+        // width: '100%',
+        margin: theme.spacing.unit * 3,
     },
     table: {
         minWidth: 500,
@@ -202,75 +206,21 @@ const styles = theme => ({
 });
 
 class EnhancedTable extends React.Component {
-    state = {
-        order: 'asc',
-        orderBy: 'name',
-        selected: [],
-        data: this.props.data,
-        page: 0,
-        rowsPerPage: 5,
-    };
-
-    handleRequestSort = (event, property) => {
-        const orderBy = property;
-        let order = 'desc';
-
-        if (this.state.orderBy === property && this.state.order === 'desc') {
-            order = 'asc';
-        }
-
-        this.setState({ order, orderBy });
-    };
-
-    handleSelectAllClick = event => {
-        if (event.target.checked) {
-            this.setState(state => ({ selected: state.data.map(n => n.id) }));
-            return;
-        }
-        this.setState({ selected: [] });
-    };
-
-    handleClick = (event, id) => {
-        const { selected } = this.state;
-        const selectedIndex = selected.indexOf(id);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, id);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
-        }
-
-        this.setState({ selected: newSelected });
-    };
-
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    };
-
-    handleChangeRowsPerPage = event => {
-        this.setState({ rowsPerPage: event.target.value });
-    };
-
-    isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
+        const {data} = this.props;
+
         const { classes } = this.props;
-        const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const {order, orderBy, selected, rowsPerPage, page } = this.props;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
+
 
         return (
             <Paper className={classes.root}>
                 <EnhancedTableToolbar
                     numSelected={selected.length}
-                    onClickAddClientButton={this.props.onClickAddClientButton}
+                    onClickAddOrderButton={this.props.onClickAddOrderButton}
                 />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
@@ -278,19 +228,19 @@ class EnhancedTable extends React.Component {
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={this.handleSelectAllClick}
-                            onRequestSort={this.handleRequestSort}
+                            onSelectAllClick={this.props.handleSelectAllClick}
+                            onRequestSort={this.props.handleRequestSort}
                             rowCount={data.length}
                         />
                         <TableBody>
                             {stableSort(data, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
-                                    const isSelected = this.isSelected(n.id);
+                                    const isSelected = this.props.isSelected(n.id);
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={event => this.handleClick(event, n.id)}
+                                            onClick={event => this.props.handleClick(event, n.id)}
                                             role="checkbox"
                                             aria-checked={isSelected}
                                             tabIndex={-1}
@@ -301,13 +251,21 @@ class EnhancedTable extends React.Component {
                                                 <Checkbox checked={isSelected} />
                                             </TableCell>
                                             <TableCell component="th" scope="row" padding="none">
-                                                {n.name}
-                                                {n.isConflicted && <DissatisfiedFaceIcon fontSize='small' color='error'/>}
+                                                {n.orderType.name}
                                             </TableCell>
-                                            <TableCell align="left">{n.phone}</TableCell>
-                                            <TableCell align="left">{n.email}</TableCell>
-                                            <TableCell align="left">{n.address}</TableCell>
-                                            <TableCell align="left">{n.comment}</TableCell>
+                                            <TableCell align="left">{n.client.name}</TableCell>
+                                            <TableCell align="left">{n.deviceType.name}</TableCell>
+                                            <TableCell align="left">{n.imei}</TableCell>
+                                            <TableCell align="left">{n.brand}</TableCell>
+                                            <TableCell align="left">{n.model}</TableCell>
+                                            <TableCell align="left">{n.equipment}</TableCell>
+                                            <TableCell align="left">{n.appearance}</TableCell>
+                                            <TableCell align="left">{n.password}</TableCell>
+                                            <TableCell align="left">{n.defect}</TableCell>
+                                            <TableCell align="left">{n.receiverNotes}</TableCell>
+                                            <TableCell align="left">{n.estimatedPrice}</TableCell>
+                                            {/*<TableCell align="left">{n.manager}</TableCell>*/}
+                                            {/*<TableCell align="left">{n.executor}</TableCell>*/}
                                         </TableRow>
                                     );
                                 })}
@@ -331,8 +289,8 @@ class EnhancedTable extends React.Component {
                     nextIconButtonProps={{
                         'aria-label': 'Next Page',
                     }}
-                    onChangePage={this.handleChangePage}
-                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                    onChangePage={this.props.handleChangePage}
+                    onChangeRowsPerPage={this.props.handleChangeRowsPerPage}
                 />
             </Paper>
         );

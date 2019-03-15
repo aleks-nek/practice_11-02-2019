@@ -13,7 +13,7 @@ public class OrderTypeController {
     @Autowired
     private OrderTypeMapper orderTypeMapper;
 
-    @GetMapping("/order_type")
+    @GetMapping("/order-type")
     public List<OrderType> get(){
         return orderTypeMapper.selectAll();
     }

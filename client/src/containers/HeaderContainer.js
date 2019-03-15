@@ -1,17 +1,28 @@
 import React, {Component} from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Drawer from '../../components/header/drawer';
+import Drawer from '../components/header/MenuDrawer';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
 import {connect} from 'react-redux';
-import './index.css';
-import {ACCESS_TOKEN} from "../../constants";
 
-class Header extends Component{
+import {ACCESS_TOKEN} from "../constants";
+
+const styles = {
+    root:{
+        display: 'flex',
+        flexGrow: '1',
+    },
+    grow:{
+        display: 'flex',
+        flexGrow: '1',
+    }
+};
+
+class HeaderContainer extends Component{
     constructor(props){
         super(props);
 
@@ -20,11 +31,13 @@ class Header extends Component{
         }
     }
     render(){
+        const { classes } = this.props;
+
         return (
-            <div className='root'>
+            <div className={classes.root}>
                 <AppBar position="fixed">
                     <Toolbar>
-                        <Typography variant="h6" color="inherit" className='grow'>
+                        <Typography variant="h6" color="inherit" className={classes.grow}>
                             App :)
                         </Typography>
                         {this.props.user.isAuthenticated ? (
@@ -42,7 +55,11 @@ class Header extends Component{
                     </Toolbar>
                 </AppBar>
                 <Drawer
-                    isOpen={this.state.isOpenDrawer} toggleDrawer={this.toggleDrawer} handleLogOutButton={this.handleLogOutButton}/>
+                    isOpen={this.state.isOpenDrawer}
+                    toggleDrawer={this.toggleDrawer}
+                    handleLogOutButton={this.handleLogOutButton}
+                    redirectTo={this.redirectTo}
+                />
             </div>
         )
     }
@@ -70,4 +87,4 @@ export default connect(
             dispatch({type: 'LOGUOT_USER'}); // TODO вынести в константы
         }
     })
-)(Header);
+)(withStyles(styles)(HeaderContainer));

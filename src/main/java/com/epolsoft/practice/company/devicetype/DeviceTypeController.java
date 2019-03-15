@@ -13,7 +13,7 @@ public class DeviceTypeController {
     @Autowired
     private DeviceTypeMapper deviceTypeMapper;
 
-    @GetMapping("/device_type")
+    @GetMapping("/device-type")
     public List<DeviceType> get(){
         return deviceTypeMapper.selectAll();
     }

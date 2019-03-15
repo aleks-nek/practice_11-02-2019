@@ -1,5 +1,6 @@
 package com.epolsoft.practice.company.order;
 
+import com.epolsoft.practice.company.Company;
 import com.epolsoft.practice.company.client.Client;
 import com.epolsoft.practice.company.devicetype.DeviceType;
 import com.epolsoft.practice.company.employee.Employee;
@@ -39,13 +40,16 @@ public class Order {
 
     private Integer estimatedPrice; // Возможная цена
 
-    private Boolean quickly; // Срочный заказ
+    private Boolean isQuickly; // Срочный заказ
 
     @NotNull
     private OrderType orderType;
 
     @NotNull
     private Client client;
+
+    @NotNull
+    private Company company;
 
     @NotNull
     private DeviceType deviceType;

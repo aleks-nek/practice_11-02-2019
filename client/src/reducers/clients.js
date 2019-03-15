@@ -10,5 +10,15 @@ export default function clients(state = initialState, action) {
         }
     }
 
+    if(action.type === 'SAVE_CLIENT_IN_STORE'){
+        let clients = state.data;
+        clients.push(action.payload);
+
+        return {
+            ...state,
+            data: clients
+        }
+    }
+
     return state;
 }
